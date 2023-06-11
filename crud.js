@@ -110,7 +110,7 @@ function deleteData(index){
 function editData(index){
     // first we have to change the ADD button to update from html when user click to edit button 
     document.querySelector("#submit").style.display = "none";
-    document.querySelector("#update").style.display = "block";
+    document.querySelector("#update").style.display = "inline-block";
 
     var peopleList;
     if (localStorage.getItem("peopleList") == null) {
@@ -144,12 +144,18 @@ function editData(index){
         document.getElementById('email').value="";
 
     // NOw we have to change the updateData to addData from html when user click to update button
-    document.querySelector("#submit").style.display = "block";
+    document.querySelector("#submit").style.display = "inline-block";
     document.querySelector("#update").style.display = "none";
 
-
-
  }
+}
+
+//function to delete all data from local storage
+function deleteall(){
+    
+        showData( localStorage.clear());
+    
+
 }
 
 
