@@ -1,0 +1,10 @@
+*{
+    color: aliceblue;
+}
+body{
+    background: black;
+}
+
+#update{
+    display: none;
+}
