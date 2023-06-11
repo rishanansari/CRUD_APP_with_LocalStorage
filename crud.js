@@ -44,7 +44,7 @@ function showData(){
         <td>${elem.age}</td>
         <td>${elem.address}</td>
         <td>${elem.email}</td>
-        <td><button onclick="deleteData(${index})"class="btn btn-danger btn-sm">Delete</button><button onclick="updateData(${index})"class="btn btn-warning btn-sm m-1">Edit</button></td>
+        <td><button onclick="deleteData(${index})"class="btn btn-danger btn-sm">Delete</button><button onclick="editData(${index})"class="btn btn-warning btn-sm m-1">Edit</button></td>
         </tr>
         `    
     });
@@ -89,3 +89,67 @@ if(validateData()==true){
 
 }
 }
+
+// function to delete the data from local storage
+
+function deleteData(index){
+
+    var peopleList;
+    if (localStorage.getItem("peopleList") == null) {
+        peopleList = [];    
+    }else{
+        peopleList = JSON.parse(localStorage.getItem("peopleList"))
+    }
+
+    peopleList.splice(index, 1);
+    localStorage.setItem("peopleList", JSON.stringify(peopleList));
+    showData();
+}
+
+//function ro update/edit the data from local storage
+function editData(index){
+    // first we have to change the ADD button to update from html when user click to edit button 
+    document.querySelector("#submit").style.display = "none";
+    document.querySelector("#update").style.display = "block";
+
+    var peopleList;
+    if (localStorage.getItem("peopleList") == null) {
+        peopleList = [];    
+    }else{
+        peopleList = JSON.parse(localStorage.getItem("peopleList"))
+    }
+
+    document.getElementById('name').value = peopleList[index].name;
+    document.getElementById('age').value=peopleList[index].age;
+    document.getElementById('address').value=peopleList[index].address;
+    document.getElementById('email').value=peopleList[index].email;
+
+    
+
+
+    document.querySelector("#update").onclick  = function(){
+
+        if(validateData() == true){
+            peopleList[index].name =  document.getElementById('name').value;
+            peopleList[index].age =  document.getElementById('age').value;
+            peopleList[index].address =  document.getElementById('address').value;
+            peopleList[index].email =  document.getElementById('email').value;
+        }
+
+        localStorage.setItem('peopleList', JSON.stringify(peopleList));
+        showData();
+        document.getElementById('name').value ="";
+        document.getElementById('age').value="";
+        document.getElementById('address').value="";
+        document.getElementById('email').value="";
+
+    // NOw we have to change the updateData to addData from html when user click to update button
+    document.querySelector("#submit").style.display = "block";
+    document.querySelector("#update").style.display = "none";
+
+
+
+ }
+}
+
+
